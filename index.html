@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contador para Copa do Mundo 2026</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: radial-gradient(circle at center, #6e1423, #31131f);
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      padding: 40px 20px;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 40px 60px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #A0203C;
+      text-align: center;
+      max-width: 480px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      font-size: 2.4rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow: 0 0 12px #A0203C;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .time-segment {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 20px 15px;
+      width: 90px;
+      box-shadow: 0 0 10px #A0203C;
+      transition: background 0.3s ease;
+    }
+
+    .time-segment:hover {
+      background: #A0203C;
+      color: white;
+      box-shadow: 0 0 20px #A0203C;
+      cursor: default;
+    }
+
+    .number {
+      font-size: 2.6rem;
+      font-weight: 700;
+    }
+
+    .label {
+      margin-top: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    button#btn-teams {
+      margin-bottom: 30px;
+      background: #A0203C;
+      border: none;
+      color: white;
+      font-weight: 700;
+      font-size: 1.2rem;
+      padding: 12px 25px;
+      border-radius: 14px;
+      box-shadow: 0 0 15px #A0203C;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    button#btn-teams:hover {
+      background: #8B1E3F;
+      color: #fff;
+    }
+
+    .teams-section {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.5s ease, opacity 0.5s ease;
+      display: none;
+    }
+
+    .teams-section.visible {
+      max-height: 1500px;
+      opacity: 1;
+      margin-top: 10px;
+      display: block;
+    }
+
+    .teams-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 20px;
+      justify-items: center;
+    }
+
+    .team-card {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 10px;
+      width: 100px;
+      box-shadow: 0 0 10px #A0203C;
+      transition: background 0.3s ease;
+    }
+
+    .team-card:hover {
+      background: #A0203C;
+      cursor: default;
+      color: white;
+      box-shadow: 0 0 22px #A0203C;
+    }
+
+    .team-flag {
+      width: 80px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 0 12px #A0203C;
+    }
+
+    .team-name {
+      margin-top: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-align: center;
+      user-select: none;
+    }
+
+    @media (max-width: 480px) {
+      .time-segment {
+        width: 70px;
+        padding: 18px 12px;
+      }
+      .number {
+        font-size: 2rem;
+      }
+      .label {
+        font-size: 0.9rem;
+      }
+      button#btn-teams {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main" aria-label="Contador para Copa do Mundo 2026">
+    <h1>Contador para Copa do Mundo 2026</h1>
+
+    <div class="countdown" aria-live="polite" aria-label="Contador regressivo para a Copa do Mundo 2026">
+      <div class="time-segment" id="days" role="timer" aria-atomic="true" aria-label="Dias restantes">
+        <div class="number">0</div>
+        <div class="label">Dias</div>
+      </div>
+      <div class="time-segment" id="hours" role="timer" aria-atomic="true" aria-label="Horas restantes">
+        <div class="number">0</div>
+        <div class="label">Horas</div>
+      </div>
+      <div class="time-segment" id="minutes" role="timer" aria-atomic="true" aria-label="Minutos restantes">
+        <div class="number">0</div>
+        <div class="label">Minutos</div>
+      </div>
+      <div class="time-segment" id="seconds" role="timer" aria-atomic="true" aria-label="Segundos restantes">
+        <div class="number">0</div>
+        <div class="label">Segundos</div>
+      </div>
+    </div>
+
+    <button id="btn-teams" aria-expanded="false" aria-controls="teams-section">Mostrar Seleções</button>
+
+    <section id="teams-section" class="teams-section" aria-label="Seleções participantes da Copa do Mundo 2026" tabindex="-1">
+      <div class="teams-grid">
+        <div class="team-card">
+          <img src="https://flagcdn.com/w320/us.png" alt="Estados Unidos" class="team-flag" loading="lazy" />
+          <div class="team-name">Estados Unidos</div>
+        </div>
+        <div class="team-card">
+          <img src="https://flagcdn.com/w320/mx.png" alt="México" class="team-flag" loading="lazy" />
+          <div class="team-name">México</div>
+        </div>
+        <div class="team-card">
+          <img src="https://flagcdn.com/w320/ca.png" alt="Canadá" class="team-flag" loading="lazy" />
+          <div class="team-name">Canadá</div>
+        </div>
+        <div class="team-card">
+          <img src="https://flagcdn.com/w320/br.png" alt="Brasil" class="team-flag" loading="lazy" />
+          <div class="team-name">Brasil</div>
+        </div>
+        <div class="team-card">
+          <img src="https://flagcdn.com/w320/ar.png" alt="Argentina" class="team-flag" loading="lazy" />
+          <div class="team-name">Argentina</div>
+        </div>
+        <div class="team-card">
+          <img src="https://flagcdn.com/w320/fr.png" alt="França" class="team-flag" loading="lazy" />
+          <div class="team-name">França</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const copaDate = new Date('2026-06-08T12:00:00');
+    const daysEl = document.querySelector('#days .number');
+    const hoursEl = document.querySelector('#hours .number');
+    const minutesEl = document.querySelector('#minutes .number');
+    const secondsEl = document.querySelector('#seconds .number');
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = copaDate - now;
+
+      if (diff <= 0) {
+        daysEl.textContent = "0";
+        hoursEl.textContent = "0";
+        minutesEl.textContent = "0";
+        secondsEl.textContent = "0";
+        clearInterval(intervalId);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      daysEl.textContent = days;
+      hoursEl.textContent = hours.toString().padStart(2, '0');
+      minutesEl.textContent = minutes.toString().padStart(2, '0');
+      secondsEl.textContent = seconds.toString().padStart(2, '0');
+    }
+
+    updateCountdown();
+    const intervalId = setInterval(updateCountdown, 1000);
+
+    const btnTeams = document.getElementById('btn-teams');
+    const teamsSection = document.getElementById('teams-section');
+
+    btnTeams.addEventListener('click', () => {
+      const expanded = btnTeams.getAttribute('aria-expanded') === 'true';
+      btnTeams.setAttribute('aria-expanded', (!expanded).toString());
+
+      if (!expanded) {
+        teamsSection.classList.add('visible');
+        btnTeams.textContent = "Ocultar Seleções";
+        teamsSection.scrollIntoView({ behavior: "smooth" });
+      } else {
+        teamsSection.classList.remove('visible');
+        btnTeams.textContent = "Mostrar Seleções";
+      }
+    });
+  </script>
+</body>
+</html>
